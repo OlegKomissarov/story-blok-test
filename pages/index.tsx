@@ -6,8 +6,9 @@ import {
 } from "@storyblok/react";
 
 export default function Home({ story }) {
-    story = useStoryblokState(story);
-
+    story = useStoryblokState(story, {
+        resolveRelations: ["popular-articles.articles"],
+    });
     return (
         <div>
             <Head>
@@ -25,6 +26,7 @@ export async function getStaticProps() {
     let sbParams = {
         version: "draft", // or 'published'
         resolve_links: "url",
+        resolve_relations: ["popular-articles.articles"],
     };
 
     const storyblokApi = getStoryblokApi();

@@ -9,6 +9,9 @@ import HeaderMenu from '../components/HeaderMenu';
 import MenuLink from '../components/MenuLink';
 import Layout from '../components/Layout';
 import Hero from '../components/Hero';
+import Article from '../components/Article';
+import AllArticles from '../components/AllArticles';
+import PopularArticles from '../components/PopularArticles';
 
 const components = {
     feature: Feature,
@@ -19,7 +22,10 @@ const components = {
     layout: Layout,
     header_menu: HeaderMenu,
     menu_link: MenuLink,
-    hero: Hero
+    hero: Hero,
+    article: Article,
+    'all-articles': AllArticles,
+    'popular-articles': PopularArticles,
 };
 
 storyblokInit({

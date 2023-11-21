@@ -12,12 +12,12 @@ const Navigation = () => {
                             <span className="sr-only">Storyblok</span>
                             <img
                                 className="h-20 w-auto sm:h-10 hidden sm:block"
-                                src='https://a.storyblok.com/f/88751/251x53/0d3909fe96/storyblok-primary.png'
+                                src='vercel.svg'
                                 alt="Storyblok"
                             />
                             <img
                                 className="h-20 w-auto sm:h-10 sm:hidden"
-                                src='https://a.storyblok.com/f/88751/92x106/835caf912a/storyblok-logo.png'
+                                src='vercel.svg'
                                 alt="Storyblok"
                             />
                         </Link>
@@ -52,7 +52,7 @@ const Navigation = () => {
                         <Link href="/about" className="text-base font-medium text-gray-500 hover:text-gray-900">
                             About
                         </Link>
-                        <Link href="/blog" className="text-base font-medium text-gray-500 hover:text-gray-900">
+                        <Link href="/blog-articles" className="text-base font-medium text-gray-500 hover:text-gray-900">
                             Blog
                         </Link>
                         <Link href="/services" className="text-base font-medium text-gray-500 hover:text-gray-900">
@@ -111,7 +111,7 @@ const Navigation = () => {
                                             About
                                         </span>
                                     </Link>
-                                    <Link href="/blog" className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
+                                    <Link href="/blog-articles" className="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
                                         {/* <!-- Heroicon name: outline/cursor-click --> */}
                                         <span className="ml-3 text-base font-medium text-gray-900">
                                             Blog
