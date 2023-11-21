@@ -1,18 +1,18 @@
-import Head from "next/head";
+import Head from 'next/head';
 
 import {
     useStoryblokState,
     getStoryblokApi,
-    StoryblokComponent,
-} from "@storyblok/react";
+    StoryblokComponent
+} from '@storyblok/react';
 
 export default function Page({ story }) {
     story = useStoryblokState(story);
 
     return (
-        <div >
+        <div>
             <Head>
-                <title>{story ? story.name : "My Site"}</title>
+                <title>{story ? story.name : 'My Site'}</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <StoryblokComponent blok={story.content} />
@@ -20,20 +20,20 @@ export default function Page({ story }) {
     );
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params, locale }) {
     let slug = params.slug ? params.slug.join("/") : "home";
-
     let sbParams = {
         version: "draft", // or 'published'
         resolve_links: "url",
+        language: locale,
     };
-
     const storyblokApi = getStoryblokApi();
     let { data } = await storyblokApi.get(`cdn/stories/${slug}`, sbParams);
     let { data: config } = await storyblokApi.get('cdn/stories/config', sbParams);
 
     return {
         props: {
+            locale,
             story: data ? data.story : false,
             key: data ? data.story.id : false,
             config: config ? config.story : false,
@@ -42,26 +42,25 @@ export async function getStaticProps({ params }) {
     };
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ locales }) {
     const storyblokApi = getStoryblokApi();
-    let { data } = await storyblokApi.get("cdn/links" ,{
+    let { data } = await storyblokApi.get('cdn/links', {
         version: 'draft'
     });
-
     let paths = [];
     Object.keys(data.links).forEach((linkKey) => {
-        if (data.links[linkKey].is_folder || data.links[linkKey].slug === "home") {
+        if (data.links[linkKey].is_folder || data.links[linkKey].slug === 'home') {
             return;
         }
-
         const slug = data.links[linkKey].slug;
-        let splittedSlug = slug.split("/");
+        let splittedSlug = slug.split('/');
 
-        paths.push({ params: { slug: splittedSlug } });
+        for (const locale of locales) {
+            paths.push({ params: { slug: splittedSlug }, locale });
+        }
     });
-
     return {
         paths: paths,
-        fallback: false,
+        fallback: false
     };
 }
