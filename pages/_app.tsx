@@ -8,6 +8,7 @@ import Config from '../components/Config';
 import HeaderMenu from '../components/HeaderMenu';
 import MenuLink from '../components/MenuLink';
 import Layout from '../components/Layout';
+import Hero from '../components/Hero';
 
 const components = {
     feature: Feature,
@@ -18,6 +19,7 @@ const components = {
     layout: Layout,
     header_menu: HeaderMenu,
     menu_link: MenuLink,
+    hero: Hero
 };
 
 storyblokInit({
