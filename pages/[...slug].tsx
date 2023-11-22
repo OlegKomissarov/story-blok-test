@@ -12,10 +12,10 @@ export default function Page({ story, preview }) {
     return (
         <div>
             <Head>
-                <title>{story ? story.name : 'My Site'}</title>
+                <title>{story?.name || 'StoryBlok Test'}</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <StoryblokComponent blok={story.content} />
+            <StoryblokComponent blok={story?.content} />
         </div>
     );
 }
