@@ -3,7 +3,7 @@ import { getStoryblokApi, storyblokEditable } from '@storyblok/react';
 
 import { useState, useEffect } from 'react';
 
-const AllArticles = ({ blok }) => {
+const AllArticles = ({ blok }: { blok: any }) => {
     const [articles, setArticles] = useState([]);
     useEffect(() => {
         const getArticles = async () => {
