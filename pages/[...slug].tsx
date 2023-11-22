@@ -15,7 +15,9 @@ export default function Page({ story, preview }) {
                 <title>{story?.name || 'StoryBlok Test'}</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <StoryblokComponent blok={story?.content} />
+            {!!story?.content &&
+                <StoryblokComponent blok={story.content} />
+            }
         </div>
     );
 }
@@ -66,7 +68,6 @@ export async function getStaticPaths({ locales }) {
             paths.push({ params: { slug: splittedSlug }, locale });
         }
     });
-    console.log(paths.map(p => p.params.slug))
     return {
         paths: paths,
         fallback: false

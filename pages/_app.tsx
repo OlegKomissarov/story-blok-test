@@ -36,8 +36,10 @@ storyblokInit({
 
 export default function App({ Component, pageProps }) {
     return (
-        <Layout story={pageProps.config}>
+        pageProps?.config ?
+            <Layout story={pageProps.config}>
+                <Component {...pageProps} />
+            </Layout> :
             <Component {...pageProps} />
-        </Layout>
     );
 }
