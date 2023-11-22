@@ -50,7 +50,13 @@ export async function getStaticPaths({ locales }) {
     });
     let paths = [];
     Object.keys(data.links).forEach((linkKey) => {
-        if (data.links[linkKey].is_folder || data.links[linkKey].slug === 'home' || data.links[linkKey].slug === 'config') {
+        if (
+            data.links[linkKey].is_folder ||
+            data.links[linkKey].slug === 'home' ||
+            data.links[linkKey].slug === 'config' ||
+            data.links[linkKey].slug === '404' ||
+            data.links[linkKey].slug === '500'
+        ) {
             return;
         }
         const slug = data.links[linkKey].slug;
@@ -60,6 +66,7 @@ export async function getStaticPaths({ locales }) {
             paths.push({ params: { slug: splittedSlug }, locale });
         }
     });
+    console.log(paths.map(p => p.params.slug))
     return {
         paths: paths,
         fallback: false
