@@ -29,9 +29,9 @@ const components = {
 };
 
 storyblokInit({
-    accessToken: 'spdK56w9phhjuhCAsASaFwtt',
+    accessToken: process.env.STORYBLOK_API_TOKEN,
     use: [apiPlugin],
-    components
+    components,
 });
 
 export default function App({ Component, pageProps }) {

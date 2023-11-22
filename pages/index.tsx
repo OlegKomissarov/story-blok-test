@@ -1,13 +1,13 @@
-import Head from "next/head";
+import Head from 'next/head';
 import {
     useStoryblokState,
     getStoryblokApi,
-    StoryblokComponent,
-} from "@storyblok/react";
+    StoryblokComponent
+} from '@storyblok/react';
 
-export default function Home({ story }) {
+export default function Home({ story, preview }) {
     story = useStoryblokState(story, {
-        resolveRelations: ["popular-articles.articles"],
+        resolveRelations: ['popular-articles.articles']
     });
     return (
         <div>
@@ -20,13 +20,13 @@ export default function Home({ story }) {
     );
 }
 
-export async function getStaticProps() {
-    let slug = "home";
+export async function getStaticProps({ locale, preview }) {
+    let slug = 'home';
 
     let sbParams = {
-        version: "draft", // or 'published'
-        resolve_links: "url",
-        resolve_relations: ["popular-articles.articles"],
+        version: preview ? 'draft' : 'published',
+        resolve_links: 'url',
+        resolve_relations: ['popular-articles.articles']
     };
 
     const storyblokApi = getStoryblokApi();
@@ -38,6 +38,8 @@ export async function getStaticProps() {
             story: data ? data.story : false,
             key: data ? data.story.id : false,
             config: config ? config.story : false,
+            locale,
+            preview: !!preview,
         },
         revalidate: 3600,
     };

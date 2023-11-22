@@ -6,7 +6,7 @@ import {
     StoryblokComponent
 } from '@storyblok/react';
 
-export default function Page({ story }) {
+export default function Page({ story, preview }) {
     story = useStoryblokState(story);
 
     return (
@@ -20,10 +20,10 @@ export default function Page({ story }) {
     );
 }
 
-export async function getStaticProps({ params, locale }) {
-    let slug = params.slug ? params.slug.join("/") : "home";
+export async function getStaticProps({ params, locale, preview }) {
+    let slug = params.slug ? params.slug.join('/') : 'home';
     let sbParams = {
-        version: "draft", // or 'published'
+        version: preview ? 'draft' : 'published',
         resolve_links: "url",
         language: locale,
     };
@@ -37,6 +37,7 @@ export async function getStaticProps({ params, locale }) {
             story: data ? data.story : false,
             key: data ? data.story.id : false,
             config: config ? config.story : false,
+            preview: !!preview,
         },
         revalidate: 3600,
     };
@@ -44,12 +45,12 @@ export async function getStaticProps({ params, locale }) {
 
 export async function getStaticPaths({ locales }) {
     const storyblokApi = getStoryblokApi();
-    let { data } = await storyblokApi.get('cdn/links', {
-        version: 'draft'
+    let { data } = await storyblokApi.get('cdn/links/', {
+        version: 'published'
     });
     let paths = [];
     Object.keys(data.links).forEach((linkKey) => {
-        if (data.links[linkKey].is_folder || data.links[linkKey].slug === 'home') {
+        if (data.links[linkKey].is_folder || data.links[linkKey].slug === 'home' || data.links[linkKey].slug === 'config') {
             return;
         }
         const slug = data.links[linkKey].slug;
