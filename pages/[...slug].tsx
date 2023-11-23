@@ -33,6 +33,16 @@ export async function getStaticProps({ params, locale, preview }) {
     let { data } = await storyblokApi.get(`cdn/stories/${slug}`, sbParams);
     let { data: config } = await storyblokApi.get('cdn/stories/config', sbParams);
 
+    const { data: articles } = await storyblokApi.get(`cdn/stories`, {
+        version: preview ? 'draft' : 'published',
+        starts_with: 'blog/',
+        is_startpage: false
+    });
+    data.story.content.body[0].articles = articles?.stories?.map((article) => {
+        article.content.slug = article.slug;
+        return article;
+    });
+
     return {
         props: {
             locale,

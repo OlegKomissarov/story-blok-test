@@ -9,7 +9,7 @@ const Config = ({blok}) => {
                         <Link href="/">
                             <img
                                 className="h-20 w-auto sm:h-10"
-                                src={blok?.logo}
+                                src={blok?.logo?.filename}
                                 alt=""
                             />
                         </Link>
